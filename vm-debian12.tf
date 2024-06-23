@@ -52,7 +52,7 @@ resource "proxmox_vm_qemu" "k8s-cp" {
     # Setup the ip address using cloud-init.
     boot = "order=scsi0"
     # Keep in mind to use the CIDR notation for the ip.
-    ipconfig0 = "ip=dhcp"
+    ipconfig0 = "ip=172.20.0.1${count.index + 1}/24,gw=172.20.0.1"
     nameserver = "172.20.0.1"
     ciuser = "root"
 }
@@ -111,6 +111,7 @@ resource "proxmox_vm_qemu" "k8s-wn" {
     # Setup the ip address using cloud-init.
     boot = "order=scsi0"
     # Keep in mind to use the CIDR notation for the ip.
+    ipconfig0 = "ip=172.20.0.2${count.index + 1}/24,gw=172.20.0.1"
     nameserver = "172.20.0.1"
     ciuser = "root"
 }
